@@ -1,0 +1,1 @@
+[{"idPractica":1,"nombrePractica":"Hemograma completo","duracionPractica":48,"isReservada":false},{"idPractica":2,"nombrePractica":"Glóbulos Blancos","duracionPractica":12,"isReservada":false},{"idPractica":3,"nombrePractica":"Glóbulos Rojos","duracionPractica":12,"isReservada":false},{"idPractica":4,"nombrePractica":"HIV","duracionPractica":24,"isReservada":true}]

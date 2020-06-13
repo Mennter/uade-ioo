@@ -1,0 +1,1 @@
+[{"dni":"33339106","nombre":"Ariel","apellido":"Nastasi","domicilio":"Sanchez 2742","mail":"ariel.nastasi@gmail.com","sexo":"M","fechaNacimiento":"08/12/1987","ObraSocial":"SM"},{"dni":"33129306","nombre":"Pedro","apellido":"Benitez","domicilio":"Jose Marmol 488","mail":"pedro@gmail.com","sexo":"M","fechaNacimiento":"12/03/1990","ObraSocial":"OSDE"}]
