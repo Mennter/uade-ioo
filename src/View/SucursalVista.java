@@ -89,7 +89,6 @@ public class SucursalVista extends JFrame {
 				unaSucursal = dialog.getSucursal();
 				SucursalController sucursalBusinessObject = new SucursalController();
 				sucursalBusinessObject.crearSucursal(unaSucursal.getIdSucursal(), unaSucursal.getDireccion(), unaSucursal.getResponsable());
-				sucursalBusinessObject.grabar();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,7 +110,6 @@ public class SucursalVista extends JFrame {
 					Sucursal unaSucursal = new Sucursal();
 					unaSucursal = dialog.getSucursal();
 					sucursalBusinessObject.modificarSucursal(unaSucursal, unaSucursal.getIdSucursal(), unaSucursal.getDireccion(), unaSucursal.getResponsable());
-					sucursalBusinessObject.grabar();
 					
 					
 					

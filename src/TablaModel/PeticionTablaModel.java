@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,7 +26,7 @@ public class PeticionTablaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Peticion> lista;
+	private List<Peticion> lista;
 	
 	protected String[] columnNames = new String[] { "ID Peticion", "DNI Paciente", "Fecha carga", "Fecha Entrega", "ID Sucursal", "Practicas"}; 
 	protected Class[] columnClasses = new Class[] { int.class, String.class, String.class, String.class, String.class, String.class, int.class}; 
@@ -82,7 +82,6 @@ public class PeticionTablaModel extends AbstractTableModel {
 		lista.remove(fila);
 		PeticionController peticionBusinessObject = new PeticionController();
 		peticionBusinessObject.eliminarPeticion(peticionBusinessObject.getPeticionObjeto(fila));
-		peticionBusinessObject.grabar();
 		fireTableDataChanged();
 	}
 	

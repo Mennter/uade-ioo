@@ -93,7 +93,6 @@ public class PeticionVista extends JFrame {
 				PeticionController coleccionDePeticiones = new PeticionController();	
 				int idPeticion = buscarIDPeticion();
 				coleccionDePeticiones.crearPeticion(idPeticion, unPaciente.getDni(), FechaDePeticion(), "", unaSucursal.getIdSucursal(), 0);
-				coleccionDePeticiones.grabar();
 				tablaModel.agregar(coleccionDePeticiones.obtenerPeticion(idPeticion));
 			}
 			

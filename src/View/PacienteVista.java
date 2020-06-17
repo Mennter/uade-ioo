@@ -111,7 +111,6 @@ public class PacienteVista extends JFrame {
 				unPaciente = dialog.getPaciente();
 				PacienteController pacienteBusinessObject = new PacienteController();
 				pacienteBusinessObject.crearPaciente(unPaciente.getDni(), unPaciente.getNombre(), unPaciente.getApellido(), unPaciente.getDomicilio(), unPaciente.getMail(), unPaciente.getSexo(), unPaciente.getFechaNacimiento(), unPaciente.getObraSocial());
-				pacienteBusinessObject.grabar();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,9 +131,7 @@ public class PacienteVista extends JFrame {
 				if (dialog.getModalResult() == ModalResult.OK) {
 					Paciente unPaciente = new Paciente();
 					unPaciente = dialog.getPaciente();
-					pacienteBusinessObject.modificarPaciente(unPaciente, unPaciente.getDni(), unPaciente.getNombre(), unPaciente.getApellido(), unPaciente.getDomicilio(), unPaciente.getMail(), unPaciente.getSexo(), unPaciente.getFechaNacimiento(), unPaciente.getObraSocial());
-					pacienteBusinessObject.grabar();
-					
+					pacienteBusinessObject.modificarPaciente(unPaciente, unPaciente.getDni(), unPaciente.getNombre(), unPaciente.getApellido(), unPaciente.getDomicilio(), unPaciente.getMail(), unPaciente.getSexo(), unPaciente.getFechaNacimiento(), unPaciente.getObraSocial());					
 					
 					
 					//ALTA NEGRADA

@@ -79,7 +79,6 @@ public class PracticaVista extends JFrame {
 				unaPractica = dialog.getPractica();				
 				PracticaController practicaBusinessObject = new PracticaController();
 				practicaBusinessObject.crearPractica(unaPractica.getIdPractica(), unaPractica.getNombrePractica(), unaPractica.getDuracionPractica(), unaPractica.getIsReservada(), unaPractica.getColeccionDePracticas());
-				practicaBusinessObject.grabar();
 			}
 			
 		} catch (Exception e) {

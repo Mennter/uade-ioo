@@ -1,6 +1,8 @@
 package TablaModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 import Controllers.SucursalController;
@@ -9,7 +11,7 @@ import Model.Sucursal;
 public class SucursalTablaModel  extends AbstractTableModel{
 	
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Sucursal> lista;
+	private List<Sucursal> lista;
 	
 	protected String[] columnNames = new String[] { "ID Sucursal", "Direccion", "Responsable" }; 
 	protected Class[] columnClasses = new Class[] { int.class, String.class, String.class }; 
@@ -54,7 +56,6 @@ public class SucursalTablaModel  extends AbstractTableModel{
 		lista.remove(fila);
 		SucursalController sucursalBusinessObject = new SucursalController();
 		sucursalBusinessObject.eliminarSucursal(sucursalBusinessObject.getSucursalObjeto(fila));
-		sucursalBusinessObject.grabar();
 		fireTableDataChanged();
 	}
 

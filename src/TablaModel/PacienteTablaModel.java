@@ -1,6 +1,7 @@
 package TablaModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -11,7 +12,7 @@ public class PacienteTablaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Paciente> lista;
+	private List<Paciente> lista;
 	
 	protected String[] columnNames = new String[] { "DNI", "Nombre", "Apellido", "Domicilio", "Mail", "Sexo", "Fecha de Nacimiento", "Obra Social"}; 
 	protected Class[] columnClasses = new Class[] { int.class, String.class, String.class, String.class, String.class, String.class,String.class,String.class}; 
@@ -67,7 +68,6 @@ public class PacienteTablaModel extends AbstractTableModel {
 		lista.remove(fila);
 		PacienteController pacienteBusinessObject = new PacienteController();
 		pacienteBusinessObject.eliminarPaciente(pacienteBusinessObject.getPacienteObjeto(fila));
-		pacienteBusinessObject.grabar();
 		fireTableDataChanged();
 	}
 	
