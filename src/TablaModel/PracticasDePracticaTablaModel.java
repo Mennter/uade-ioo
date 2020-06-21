@@ -1,32 +1,39 @@
 package TablaModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import Controllers.PracticaController;
 import Model.Practica;
 
-public class PracticaTablaModel extends AbstractTableModel {
+public class PracticasDePracticaTablaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
 
-	private List<Practica> lista;
+	private ArrayList<Practica> lista;
 	
 	
 	
-	protected String[] columnNames = new String[] { "ID Practica", "Nombre", "Duracion", "Asociadas"}; 
-	protected Class[] columnClasses = new Class[] { int.class, String.class, int.class, ArrayList.class}; 
+	protected String[] columnNames = new String[] { "ID Practica", "Nombre", "Duracion"}; 
+	protected Class[] columnClasses = new Class[] { int.class, String.class, int.class}; 
 
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public PracticaTablaModel(PracticaController coleccionDePracticas)
+	private Practica practica;
+	
+	public PracticasDePracticaTablaModel(Practica practica)
 	{
-		lista = coleccionDePracticas.getPracticaList();
+		PracticaController PracticaBO = new PracticaController();
+		lista = PracticaBO.getPracticasDePractica(practica.getIdPractica()); 
+		refresh();
 		
+	}
+	
+	public PracticasDePracticaTablaModel(){
+		lista = new ArrayList<Practica>();
 	}
 	
 	
@@ -48,9 +55,9 @@ public class PracticaTablaModel extends AbstractTableModel {
 		switch(columnIndex) 
 		{ 
 			case 0: return lista.get(rowIndex).getIdPractica();
+			
 			case 1: return lista.get(rowIndex).getNombrePractica();
 			case 2: return lista.get(rowIndex).getDuracionPractica();
-			case 3: return lista.get(rowIndex).getColeccionDePracticas().size();
 			default: return null; 
 		}
 	}
@@ -64,12 +71,39 @@ public class PracticaTablaModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 	
+	public void setPracticaMadre(Practica practica) {
+		borrarTodo();
+		this.practica = practica;
+		ArrayList<Practica> practicas = this.practica.getColeccionDePracticas();
+		
+		
+		for (Practica p: practicas) {
+			agregar(p);
+		}	
+		
+	}
+	
 	public void eliminar(int fila){
+		
 		lista.remove(fila);
+		
+
 		PracticaController practicaBusinessObject = new PracticaController();
-		practicaBusinessObject.eliminarPractica(practicaBusinessObject.getPracticaObjeto(fila));
+		
+		this.practica.setColeccionDePracticas(lista);
+		practicaBusinessObject.modificarPractica(this.practica.getIdPractica(), 
+				this.practica.getNombrePractica(), 
+				this.practica.getDuracionPractica(), 
+				this.practica.getColeccionDePracticas());
+				
+		practicaBusinessObject.grabar();
+		
 		fireTableDataChanged();
 	}
 	
+	private void borrarTodo() {
+		lista.clear();
+		fireTableDataChanged();
+	}	
 
 }

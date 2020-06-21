@@ -94,5 +94,15 @@ public class PracticaController extends DatosJSON<Practica> {
 		}
 		
 	}
+
+	public int getIdPracticaPorNombre(String text) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void agregarPracticaAPractica(Practica practicaMadre, Practica practicaHija) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 }

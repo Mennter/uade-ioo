@@ -40,7 +40,7 @@ public class PeticionTablaModel extends AbstractTableModel {
 		
 	}
 	
-	@Override
+	@Overridea
 	public int getColumnCount() {
 		return columnNames.length;
 	}

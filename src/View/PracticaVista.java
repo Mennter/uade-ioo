@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import Model.Practica;
 import Principal.Principal;
 import TablaModel.PacienteTablaModel;
 import TablaModel.PracticaTablaModel;
-
+import TablaModel.PracticasDePracticaTablaModel;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -34,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class PracticaVista extends JFrame {
@@ -43,6 +45,7 @@ public class PracticaVista extends JFrame {
 	private JTable table;
 	private JTable tablePracticasDePractica;
 	private PracticaTablaModel tablaModel;
+	private PracticasDePracticaTablaModel tablaModelDePractica;
 
 	
 	public void PantallaPractica() {
@@ -62,6 +65,7 @@ public class PracticaVista extends JFrame {
 		
 		PracticaController coleccionDePracticas = new PracticaController();
 		tablaModel = new PracticaTablaModel(coleccionDePracticas);
+		
 		initialize();
 	}
 	
@@ -78,7 +82,7 @@ public class PracticaVista extends JFrame {
 				Practica unaPractica = new Practica();
 				unaPractica = dialog.getPractica();				
 				PracticaController practicaBusinessObject = new PracticaController();
-				practicaBusinessObject.crearPractica(unaPractica.getIdPractica(), unaPractica.getNombrePractica(), unaPractica.getDuracionPractica(), unaPractica.getIsReservada(), unaPractica.getColeccionDePracticas());
+				practicaBusinessObject.crearPractica(unaPractica.getIdPractica(), unaPractica.getNombrePractica(), unaPractica.getDuracionPractica(), false, new ArrayList<Practica>());
 			}
 			
 		} catch (Exception e) {
@@ -86,6 +90,18 @@ public class PracticaVista extends JFrame {
 		}				
 	}
 	
+	private void quitarPractica() {
+		try {
+			if (tablePracticasDePractica.getSelectedRow() == -1) {
+			}
+			else {
+				tablaModelDePractica.eliminar(tablePracticasDePractica.getSelectedRow());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	private void EliminarPractica() {
 		try {
@@ -103,15 +119,33 @@ public class PracticaVista extends JFrame {
 	
 	
 	
+	private void agregarPractica(Practica practicaMadre, Practica practicaHija) {
+		try {
+			PracticaController PracticaBO = new PracticaController();
+			if (table.getSelectedRow() == -1) {
+			}
+			else {
+
+				PracticaBO.agregarPracticaAPractica(practicaMadre, practicaHija);
+				
+				
+				//ALTA NEGRADA
+				//Principal atras = new Principal();
+				//atras.setVisible(false);
+				//PacienteVista.this.dispose();
+				//PacienteVista nuevaVentana = new PacienteVista();
+				//nuevaVentana.setVisible(true);
+
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	public void resizeColumnWidth(JTable table) {
@@ -127,8 +161,14 @@ public class PracticaVista extends JFrame {
 	            width=300;
 	        columnModel.getColumn(column).setPreferredWidth(width);
 	    }
+	    
+	    
+
+	    
 	}
 	
+	
+
 	
 	private void initialize() {
 		try {
@@ -171,8 +211,34 @@ public class PracticaVista extends JFrame {
 		});
 		
 		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				quitarPractica();
+			}
+
+			
+		});
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Practica practicaMadre = new Practica();
+				Practica practicaHija = new Practica();
+				
+				PracticaController coleccionDePracticas = new PracticaController();
+				
+
+				practicaMadre = coleccionDePracticas.getPractica(coleccionDePracticas.getIdPracticaPorNombre(txtPractica.getText()));
+				practicaHija= coleccionDePracticas.getPracticaObjeto(table.getSelectedRow());
+				agregarPractica(practicaMadre, practicaHija);
+			
+				
+				tablaModelDePractica.agregar(practicaHija);
+			}
+
+
+		});
 
 		
 		JButton btnAtras = new JButton("Atras");
@@ -227,21 +293,31 @@ public class PracticaVista extends JFrame {
 		JScrollPane scrollPanePracticas = new JScrollPane();
 		PanelPracticas.add(scrollPanePracticas, BorderLayout.CENTER);
 		
+		tablaModelDePractica = new PracticasDePracticaTablaModel();
+
 		table = new JTable(tablaModel);
-		/*
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) {
-					modificarPersona();
-				}
+					PracticaController PracticasBO = new PracticaController();
+					//tablaModelDePractica = new PracticasDePracticaTablaModel(PracticasBO.getPracticaObjeto(table.getSelectedRow()));
+					txtPractica.setText(PracticasBO.getPracticaObjeto(table.getSelectedRow()).getNombrePractica());
+					
+					
+					tablaModelDePractica.setPracticaMadre(PracticasBO.getPracticaObjeto(table.getSelectedRow()));		
+					
 
+				}
 			}
 		});
-		*/
+		
+		
 		table.setAutoCreateRowSorter(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPanePracticas.setViewportView(table);
+		
 		
 		JPanel PanelPractica = new JPanel();
 		contentPane.add(PanelPractica, BorderLayout.EAST);
@@ -263,7 +339,7 @@ public class PracticaVista extends JFrame {
 		panel_4.add(scrollPanePracticasDePractica, BorderLayout.CENTER);
 		
 		//tablePracticasDePractica = new JTable();
-		tablePracticasDePractica = new JTable();
+		tablePracticasDePractica = new JTable(tablaModelDePractica);
 		/*
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -281,4 +357,6 @@ public class PracticaVista extends JFrame {
 		
 		
 	}
+	
+
 }
