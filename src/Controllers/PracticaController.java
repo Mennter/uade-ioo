@@ -16,9 +16,7 @@ public class PracticaController extends DatosJSON<Practica> {
 			instancia = new PracticaController();
 		return instancia;
 	}
-	
 
-	Practica practica = new Practica();
 	
 	public PracticaController(){
 		super(Practica.class, "./practica.txt");
@@ -59,12 +57,14 @@ public class PracticaController extends DatosJSON<Practica> {
 	}
 
 	public void modificarPractica(int idPractica, String nombrePractica, int duracionPractica, Boolean isReservada, ArrayList<Practica> coleccionDePracticas) {
+		Practica practica = getPractica(idPractica);
+		
 		practica.setIdPractica(idPractica);
 		practica.setNombrePractica(nombrePractica);
 		practica.setDuracionPractica(duracionPractica);
 		practica.setIsReservada(isReservada);
 		practica.setColeccionDePracticas(coleccionDePracticas);
-
+		guardar();
 	}
 	
 	public void eliminarPractica(Practica practica) {
@@ -96,13 +96,23 @@ public class PracticaController extends DatosJSON<Practica> {
 	}
 
 	public int getIdPracticaPorNombre(String text) {
-		// TODO Auto-generated method stub
-		return 0;
+		return lista.stream()
+        		.filter(practica -> practica.getNombrePractica().equals(text))
+        		.map(practica -> practica.getIdPractica())
+        		.findAny()
+        		.orElse(null);
 	}
 
 	public void agregarPracticaAPractica(Practica practicaMadre, Practica practicaHija) {
-		// TODO Auto-generated method stub
+		Practica practica = getPractica(practicaMadre.getIdPractica());
+		practica.getColeccionDePracticas().add(practicaHija);
+		guardar();
+	}
+
+	public ArrayList<Practica> getPracticasDePractica(int idPractica) {
+		Practica practica = this.getPractica(idPractica);
 		
+		return practica.getColeccionDePracticas();
 	}
 		
 }

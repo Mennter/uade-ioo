@@ -55,7 +55,6 @@ public class PracticasDePracticaTablaModel extends AbstractTableModel {
 		switch(columnIndex) 
 		{ 
 			case 0: return lista.get(rowIndex).getIdPractica();
-			
 			case 1: return lista.get(rowIndex).getNombrePractica();
 			case 2: return lista.get(rowIndex).getDuracionPractica();
 			default: return null; 
@@ -64,6 +63,7 @@ public class PracticasDePracticaTablaModel extends AbstractTableModel {
 	
 	public void agregar(Practica practica){
 		lista.add(practica);
+
 		fireTableDataChanged();
 	}
 	
@@ -88,15 +88,10 @@ public class PracticasDePracticaTablaModel extends AbstractTableModel {
 		lista.remove(fila);
 		
 
-		PracticaController practicaBusinessObject = new PracticaController();
 		
 		this.practica.setColeccionDePracticas(lista);
-		practicaBusinessObject.modificarPractica(this.practica.getIdPractica(), 
-				this.practica.getNombrePractica(), 
-				this.practica.getDuracionPractica(), 
-				this.practica.getColeccionDePracticas());
-				
-		practicaBusinessObject.grabar();
+
+		modificarPractica();
 		
 		fireTableDataChanged();
 	}
@@ -104,6 +99,16 @@ public class PracticasDePracticaTablaModel extends AbstractTableModel {
 	private void borrarTodo() {
 		lista.clear();
 		fireTableDataChanged();
-	}	
+	}
+	
+	
+	private void modificarPractica() {
+		PracticaController practicaBusinessObject = new PracticaController();
+		practicaBusinessObject.modificarPractica(this.practica.getIdPractica(), 
+				this.practica.getNombrePractica(), 
+				this.practica.getDuracionPractica(), 
+				false,
+				this.practica.getColeccionDePracticas());
+	}
 
 }
