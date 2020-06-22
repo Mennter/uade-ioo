@@ -2,6 +2,7 @@ package Controllers;
 import java.util.List;
 
 import Model.Peticion;
+import Model.Practica;
 import helpers.DatosJSON;
 
 
@@ -65,5 +66,14 @@ public class PeticionController extends DatosJSON<Peticion> {
 		}
 	}
 	
+	
+	public void agregarPracticaAPeticion (Peticion peticion, Practica practica) {
+		
+		Peticion p = this.obtenerPeticion(peticion.getIdPeticion());
+		
+		p.getColeccionDePracticas().add(practica);
+		guardar();
+
+	}
 		
 }

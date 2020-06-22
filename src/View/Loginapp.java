@@ -184,7 +184,8 @@ private JPanel contentPane;
 		} else {
 			Principal nuevaVentana = new Principal(usuario);
 			nuevaVentana.setVisible(true);
-			Loginapp.this.dispose();
+//			Loginapp.this.dispose();
+			dispose();
 		}
 		
 		
