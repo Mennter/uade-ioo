@@ -18,18 +18,15 @@ import Model.Paciente;
 import Model.Peticion;
 import Model.Sucursal;
 
-
-
 public class PeticionTablaModel extends AbstractTableModel {
 	
-
-
 	private static final long serialVersionUID = 1L;
 
+	
 	private List<Peticion> lista;
 	
 	protected String[] columnNames = new String[] { "ID Peticion", "DNI Paciente", "Fecha carga", "Fecha Entrega", "ID Sucursal", "Practicas"}; 
-	protected Class[] columnClasses = new Class[] { int.class, String.class, String.class, String.class, String.class, String.class, int.class}; 
+	protected Class[] columnClasses = new Class[] { int.class, String.class, String.class, String.class, String.class, String.class, ArrayList.class}; 
 
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
@@ -64,7 +61,7 @@ public class PeticionTablaModel extends AbstractTableModel {
 			case 2: return lista.get(rowIndex).getFechaCarga();
 			case 3: return lista.get(rowIndex).getFechaEntrega();
 			case 4: return lista.get(rowIndex).getUnaSucursal();
-			case 5: return lista.get(rowIndex).getCantPracticas();
+			case 5: return lista.get(rowIndex).getColeccionDePracticas().size();
 			default: return null; 
 		}
 	}

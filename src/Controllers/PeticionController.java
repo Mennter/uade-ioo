@@ -1,4 +1,5 @@
 package Controllers;
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.Peticion;
@@ -34,8 +35,8 @@ public class PeticionController extends DatosJSON<Peticion> {
 	}
 	
 
-	public void crearPeticion(int idPeticion, String dniPaciente, String fechaCarga, String fechaEntrega, String idSucursal, int cantPracticas){
-		Peticion peticion= new Peticion(idPeticion, dniPaciente, fechaCarga, fechaEntrega, idSucursal, cantPracticas);
+	public void crearPeticion(int idPeticion, String dniPaciente, String fechaCarga, String fechaEntrega, String idSucursal, ArrayList<Practica> Practicas){
+		Peticion peticion= new Peticion(idPeticion, dniPaciente, fechaCarga, fechaEntrega, idSucursal, Practicas);
 		lista.add(peticion);
 		guardar();
 	}
@@ -66,7 +67,6 @@ public class PeticionController extends DatosJSON<Peticion> {
 		}
 	}
 	
-	
 	public void agregarPracticaAPeticion (Peticion peticion, Practica practica) {
 		
 		Peticion p = this.obtenerPeticion(peticion.getIdPeticion());
@@ -75,5 +75,6 @@ public class PeticionController extends DatosJSON<Peticion> {
 		guardar();
 
 	}
+	
 		
 }

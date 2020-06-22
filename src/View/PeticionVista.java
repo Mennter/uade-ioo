@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -19,10 +20,12 @@ import javax.swing.table.TableColumnModel;
 
 import Controllers.PacienteController;
 import Controllers.PeticionController;
+import Controllers.PracticaController;
 import Controllers.SucursalController;
 import Model.ObraSocial;
 import Model.Paciente;
 import Model.Peticion;
+import Model.Practica;
 import Model.Sucursal;
 import Principal.Principal;
 import TablaModel.PacienteTablaModel;
@@ -65,43 +68,34 @@ public class PeticionVista extends JFrame {
 		});
 	}
 
-
 	public PeticionVista() {
 		PeticionController coleccionDePeticiones = new PeticionController();
 		tablaModel = new PeticionTablaModel(coleccionDePeticiones);
 		initialize();
 	}
 	
-	
-	
 	private void AgregarPeticion() {
 		try 
 		{
 			PacienteController coleccionDePacientes = new PacienteController();
 			SucursalController coleccionDeSucursales = new SucursalController();
-			
-			if ((coleccionDePacientes.getPacientePorDni(txtDNI.getText()) == null) && (coleccionDeSucursales.getSucursalPorID(txtIdSucursal.getText())) == null ) {
-				
+			Paciente unPaciente = new Paciente();
+			unPaciente = coleccionDePacientes.getPacientePorDni(txtDNI.getText());
+			Sucursal unaSucursal = new Sucursal();
+			unaSucursal = coleccionDeSucursales.getSucursalPorID(txtIdSucursal.getText());
+			if ((unPaciente == null) || (unaSucursal == null )) {
 				JOptionPane.showMessageDialog(null, "DNI O SUCURSAL INEXISTENTE");
 				
 			}else {
-				Paciente unPaciente = new Paciente();
-				unPaciente = coleccionDePacientes.getPacientePorDni(txtDNI.getText());
-				Sucursal unaSucursal = new Sucursal();
-				unaSucursal = coleccionDeSucursales.getSucursalPorID(txtIdSucursal.getText());
-			
 				PeticionController coleccionDePeticiones = new PeticionController();	
 				int idPeticion = buscarIDPeticion();
-				coleccionDePeticiones.crearPeticion(idPeticion, unPaciente.getDni(), FechaDePeticion(), "", unaSucursal.getIdSucursal(), 0);
+				coleccionDePeticiones.crearPeticion(idPeticion, unPaciente.getDni(), FechaDePeticion(), "", unaSucursal.getIdSucursal(), new ArrayList<Practica>());
 				tablaModel.agregar(coleccionDePeticiones.obtenerPeticion(idPeticion));
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
 	}	
-	
 		
 	private void EliminarPeticion() {
 		try {
@@ -125,7 +119,6 @@ public class PeticionVista extends JFrame {
 		}				
 	}	
 	
-	
 	private void BuscarPeticionesCriticas() {
 		try 
 		{
@@ -147,11 +140,30 @@ public class PeticionVista extends JFrame {
 	}	
 	
 	
-	
-	
-	
-	
-	
+	private void AgregarPracticaAPeticion() {
+		
+		try {
+			
+			PeticionController coleccionDePeticiones = new PeticionController();
+			Peticion unaPeticion = new Peticion();
+			unaPeticion = coleccionDePeticiones.getPeticionObjeto(table.getSelectedRow());
+			PeticionABMPractica ventana = new PeticionABMPractica(unaPeticion);
+			
+			if (table.getSelectedRow() == -1) {
+				
+			}
+			else {
+				
+				unaPeticion = coleccionDePeticiones.getPeticionObjeto(table.getSelectedRow());
+				ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				ventana.setVisible(true);
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 	
 	
 	private String FechaDePeticion() {  
@@ -289,7 +301,7 @@ public class PeticionVista extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) {
-					ModificarPeticionPorDNI();
+					AgregarPracticaAPeticion();
 				}
 
 			}

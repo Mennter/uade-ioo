@@ -20,13 +20,13 @@ public class Peticion {
 	
 	
 	//METODO CONSTRUCTOR
-	public Peticion(int idPeticion, String dniPaciente, String fechaCarga, String fechaEntrega, String idSucursal, int cantPracticas) {
+	public Peticion(int idPeticion, String dniPaciente, String fechaCarga, String fechaEntrega, String idSucursal, ArrayList<Practica> coleccionDePracticas) {
 		this.idPeticion = idPeticion;
 		this.dniPaciente = dniPaciente;
 		this.fechaCarga = fechaCarga;
 		this.fechaEntrega = fechaEntrega;
 		this.idSucursal = idSucursal;
-		this.cantPracticas = cantPracticas;
+		this.coleccionDePracticas = coleccionDePracticas;
 	}
 	
 	public Peticion() {
