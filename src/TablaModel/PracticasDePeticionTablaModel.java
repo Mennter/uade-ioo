@@ -32,6 +32,12 @@ public class PracticasDePeticionTablaModel extends AbstractTableModel {
 		
 	}
 	
+	public PracticasDePeticionTablaModel(ArrayList<Practica> practicas)
+	{
+		lista = practicas;
+		refresh();
+		
+	}
 	public PracticasDePeticionTablaModel(){
 		lista = new ArrayList<Practica>();
 	}

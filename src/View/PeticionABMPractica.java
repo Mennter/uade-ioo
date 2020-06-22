@@ -226,7 +226,7 @@ public class PeticionABMPractica extends JFrame {
 		
 		
 		
-		tablaModelDePractica = new PracticasDePeticionTablaModel();
+		tablaModelDePractica = new PracticasDePeticionTablaModel(unaPeticion.getColeccionDePracticas());
 		table = new JTable(tablaModel);
 
 		
