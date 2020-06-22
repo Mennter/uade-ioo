@@ -1,0 +1,1 @@
+[{"idPeticion":1,"dniPaciente":"1","fechaCarga":"21/06/2020","fechaEntrega":"","idSucursal":"001","cantPracticas":0,"coleccionDePracticas":[]},{"idPeticion":2,"dniPaciente":"1","fechaCarga":"21/06/2020","fechaEntrega":"","idSucursal":"001","cantPracticas":0,"coleccionDePracticas":[]}]

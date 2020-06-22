@@ -1,0 +1,1 @@
+[{"idSucursal":"001","direccion":"Ferre 1093","responsable":"Ariel"},{"idSucursal":"002","direccion":"Amenedo 248","responsable":"Ariel"},{"idSucursal":"003","direccion":"Santa Maria 3381","responsable":"Ariel"}]

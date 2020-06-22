@@ -1,0 +1,1 @@
+[{"idRol":1591757541495,"nombreRol":"Administrador","acciones":["CREAR_USUARIOS","BORRAR_USUARIOS","MODIFICAR_USUARIOS"]},{"idRol":1591757541578,"nombreRol":"Usuario","acciones":["MODIFICAR_USUARIOS"]},{"idRol":1591757541581,"nombreRol":"Visitante","acciones":[]}]
